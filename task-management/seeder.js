@@ -33,18 +33,19 @@ async function seedDatabase (runSaveMiddleware = false) {
 */
 
 import { Seeder } from 'mongoose-data-seed';
-import { dummy_data } from '../task-management/dummy_data';
+import { Task } from '../server/models';
+import dummy_data from './dummy_data';
 
-class DataSeeder extends Seeder {
+class TaskSeeder extends Seeder {
   async shouldRun() {
-    return dummy_data.countDocuments()
+    return Task.countDocuments()
       .exec()
       .then(count => count === 0);
   }
 
   async run() {
-    return dummy_data.create(data);
+    return Task.create(dummy_data);
   }
 }
 
-export default DataSeeder;
+export default TaskSeeder;
