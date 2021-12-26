@@ -1,8 +1,9 @@
-onst fs = require('fs')
+const fs = require('fs')
 const util = require('util')
 const readDir = util.promisify(fs.readdir).bind(fs)
 const path = require('path')
 const mongoose = require('mongoose')
+import dummy_data from './dummy_data'
 
 function toTitleCase (str) {
   return str.replace(/\w\S*/g, (txt) => {
@@ -20,7 +21,7 @@ async function seedDatabase (runSaveMiddleware = false) {
     const model = mongoose.models[modelName]
 
     if (!model) throw new Error(`Cannot find Model '${modelName}'`)
-    const fileContents = require(path.join(__dirname, file))
+    const fileContents = require(path.join(__dirname, dummy_data.js))
 
     runSaveMiddleware
       ? await model.create(fileContents)
