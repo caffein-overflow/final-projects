@@ -1,5 +1,4 @@
 /**
-
 const fs = require('fs')
 const util = require('util')
 const readDir = util.promisify(fs.readdir).bind(fs)
@@ -32,6 +31,7 @@ async function seedDatabase (runSaveMiddleware = false) {
 }
 */
 
+/** 
 import { Seeder } from 'mongoose-data-seed';
 import { Task } from '../server/models';
 import dummy_data from './dummy_data';
@@ -49,3 +49,27 @@ class TaskSeeder extends Seeder {
 }
 
 export default TaskSeeder;
+*/
+
+/*
+import seeder from "mongoose-seed";
+import dummy_data from "./dummy_data";
+
+const db = 'mongodb://localhost:27017/test';
+
+seeder.connect(db, function () {
+    seeder.loadModels(modelpaths: [
+        "task-management\server\models\Task.js"
+    ]);
+    seeder.clearModels(models: ["task-management\server\models\Task.js"]);
+    seeder.populateModels(dummy_data, cb: function(err,done) {
+        if(err) {
+            return console.log("seed err", err)
+        }
+        if(done) {
+            return console.log("seed done", done);
+        }
+
+        seeder.disconnect()
+    })
+})*/

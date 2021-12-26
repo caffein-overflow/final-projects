@@ -12,4 +12,24 @@ async function main() {
 }
 
 
-const Task = mongoose.model('Task', TaskSchema);
+import seeder from "mongoose-seed";
+import dummy_data from "./dummy_data";
+
+const db = 'mongodb://localhost:27017/test';
+
+seeder.connect(db, function () {
+    seeder.loadModels(modelpaths: [
+        "task-management\server\models\Task.js"
+    ]);
+    seeder.clearModels(models: ["task-management\server\models\Task.js"]);
+    seeder.populateModels(dummy_data, cb: function(err,done) {
+        if(err) {
+            return console.log("seed err", err)
+        }
+        if(done) {
+            return console.log("seed done", done);
+        }
+
+        seeder.disconnect()
+    })
+})
