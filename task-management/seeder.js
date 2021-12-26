@@ -1,3 +1,5 @@
+/**
+
 const fs = require('fs')
 const util = require('util')
 const readDir = util.promisify(fs.readdir).bind(fs)
@@ -6,7 +8,7 @@ const mongoose = require('mongoose')
 import dummy_data from './dummy_data'
 
 function toTitleCase (str) {
-  return str.replace(/\w\S*/g, (txt) => {
+  return str.replace(/\w\S/g, (txt) => {
     return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()
   })
 }
@@ -28,3 +30,21 @@ async function seedDatabase (runSaveMiddleware = false) {
       : await model.insertMany(fileContents)
   }
 }
+*/
+
+import { Seeder } from 'mongoose-data-seed';
+import { dummy_data } from '../task-management/dummy_data';
+
+class DataSeeder extends Seeder {
+  async shouldRun() {
+    return dummy_data.countDocuments()
+      .exec()
+      .then(count => count === 0);
+  }
+
+  async run() {
+    return dummy_data.create(data);
+  }
+}
+
+export default DataSeeder;
