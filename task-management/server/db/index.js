@@ -2,6 +2,7 @@
  * Connect to the Database with Mongoose here
  */
 
+
 const mongoose = require('mongoose');
 
 main().catch(err => console.log(err));
@@ -12,4 +13,3 @@ async function main() {
 }
 
 
-const Task = mongoose.model('Task', TaskSchema);
